@@ -2,7 +2,7 @@ import { functionHandler } from "@/libs/function";
 import { getRepository } from "@/repositories/listings";
 import { Listing, ListingWrite } from "@/types.generated";
 import { EntityNotFound, NotFound } from "@/libs/errors";
-import {getListingPriceRepository} from "@/repositories/listing_prices";
+import { getListingPriceRepository } from "@/repositories/listing_prices";
 
 export const getListings = functionHandler<Listing[]>(
   async (_event, context) => {
@@ -17,6 +17,7 @@ export const addListing = functionHandler<Listing, ListingWrite>(
     const listing = await getRepository(context.postgres).insertListing(
       event.body
     );
+    // Once create listing sync insert to listing price table
     await getListingPriceRepository(context.postgres).insertListingPrice(
         listing.id,
         event.body
@@ -29,11 +30,11 @@ export const addListing = functionHandler<Listing, ListingWrite>(
 export const updateListing = functionHandler<Listing, ListingWrite>(
   async (event, context) => {
     try {
-      const listing = await getRepository(context.postgres).updateListing(
-        parseInt(event.pathParameters.id),
-        event.body
-      );
-
+        const listing = await getRepository(context.postgres).updateListing(
+          parseInt(event.pathParameters.id),
+          event.body
+        );
+      // Once update listing price sync insert to listing price table
         await getListingPriceRepository(context.postgres).insertListingPrice(
             parseInt(event.pathParameters.id),
             event.body
@@ -44,7 +45,6 @@ export const updateListing = functionHandler<Listing, ListingWrite>(
       if (e instanceof EntityNotFound) {
         throw new NotFound(e.message);
       }
-
       throw e;
     }
   }
