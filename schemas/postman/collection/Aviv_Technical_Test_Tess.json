@@ -1,0 +1,129 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "82ffcc4a-9c17-44a7-822d-b1ef72115e34",
+        "name": "Aviv Technical Test"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+              "name": "POST"
+            },
+            "body": {
+              "bodyType": "Text",
+              "textBody": "{\n   \"name\":\"Mikhail Schmiedt\",\n   \"postal_address\":{\n      \"street_address\":\"13 allee bellevue\",\n      \"postal_code\":\"21810\",\n      \"city\":\"Berchtesgaden\",\n      \"country\":\"DE\"\n   },\n   \"description\":\"Lorem Ipsum Dolor ...\",\n   \"building_type\":\"STUDIO\",\n   \"latest_price_eur\":720000,\n   \"surface_area_m2\":167,\n   \"rooms_count\":6,\n   \"bedrooms_count\":2,\n   \"contact_phone_number\":\"+219779210354\"\n}"
+            },
+            "uri": {
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "path": "${applicationURI}/listings"
+            },
+            "id": "90e877c5-6d1a-449c-94f3-6af2039851ef",
+            "name": "Create a listing",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "assertions": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+              "name": "GET"
+            },
+            "body": {
+              "bodyType": "Text",
+              "textBody": ""
+            },
+            "uri": {
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "path": "${applicationURI}/listings"
+            },
+            "id": "9db53e64-41b6-4fc1-9333-0288a451c9bc",
+            "name": "Get all listings",
+            "headers": [],
+            "assertions": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+              "name": "GET"
+            },
+            "body": {
+              "bodyType": "Text",
+              "textBody": ""
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${applicationURI}",
+              "path": "/listings/10/prices"
+            },
+            "id": "3e07cb99-7e99-4bde-8591-cbe841bfad9c",
+            "name": "Get listings prices",
+            "headers": [],
+            "assertions": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+              "name": "PUT"
+            },
+            "body": {
+              "bodyType": "Text",
+              "textBody": "{\n   \"name\":\"Mikhail Schmiedt\",\n   \"postal_address\":{\n      \"street_address\":\"Johan-Ernst-Ring 88888\",\n      \"postal_code\":\"21810\",\n      \"city\":\"Berchtesgaden\",\n      \"country\":\"DE\"\n   },\n   \"description\":\"Lorem Ipsum Dolor ...\",\n   \"building_type\":\"STUDIO\",\n   \"latest_price_eur\":55555,\n   \"surface_area_m2\":167,\n   \"rooms_count\":6,\n   \"bedrooms_count\":2,\n   \"contact_phone_number\":\"+219779210354\"\n}"
+            },
+            "uri": {
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "path": "${applicationURI}/listings/10"
+            },
+            "id": "4d1375ba-b805-4a86-b323-420d62aaee34",
+            "name": "Update a listing",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "assertions": []
+          }
+        }
+      ]
+    }
+  ]
+}
