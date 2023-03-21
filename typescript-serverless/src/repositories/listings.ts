@@ -1,7 +1,7 @@
 import PostgresClient from "serverless-postgres";
 import { Listing, ListingWrite } from "@/types.generated";
 import { extractVariables } from "@/libs/postgres";
-import { EntityNotFound } from "@/libs/errors";
+import {BadRequest, EntityNotFound} from "@/libs/errors";
 
 type ListingTableRow = {
   id?: number;
@@ -111,6 +111,13 @@ export function getRepository(postgres: PostgresClient) {
 
     async updateListing(listingId: number, listing: ListingWrite) {
       const originalListing = await this.getListing(listingId);
+
+      let latestPriceEur = listing.latest_price_eur.toString(); // Convert to string to get the number of digits
+      const decimalLength = latestPriceEur.length;
+
+      if (latestPriceEur && decimalLength > 8 ) {
+          throw new BadRequest('Price must be less than or equal to 8 digits');
+      }
 
       const tableRow = listingToTableRow(listing, originalListing.created_date);
       const { columns, columnsVariables, values } = extractVariables(tableRow);

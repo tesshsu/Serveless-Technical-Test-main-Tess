@@ -8,3 +8,4 @@ python-flask/.pytest_cache
 python-flask/.mypy_cache
 tests/pricemap.unittests/obj/*
 tests/pricemap.unittests/bin/*
+.idea/
