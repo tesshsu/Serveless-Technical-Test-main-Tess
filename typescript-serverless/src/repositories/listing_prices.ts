@@ -1,6 +1,7 @@
 import PostgresClient from "serverless-postgres";
 import {ListingWrite, Price} from "@/types.generated";
 import { extractVariables } from "@/libs/postgres";
+import {BadRequest} from "@/libs/errors";
 
 type ListingPriceTableRow = {
   id?: number;
@@ -35,6 +36,12 @@ export function getListingPriceRepository(postgres: PostgresClient) {
       const queryString = `SELECT * FROM listing_price WHERE listing_id = $1`;
       const queryValues = [listingId];
       const result = await postgres.query(queryString, queryValues);
+
+      /// Throw an error if the listing has already been updated more than 10 times
+      const rowCount = result.rowCount;
+      if (rowCount && rowCount >= 10) {
+        throw new BadRequest(`The listing with id ${listingId} has already been updated ${rowCount} times, limited updated allowed maxima 10 times`);
+      }
 
       return result.rows.map(tableRowToListingPrice);
     },
