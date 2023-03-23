@@ -9,7 +9,8 @@ Write here notes about your implementation choices and assumptions.
 
 ### Follow are my work flow for this task--Tess
 
-![AVIA1](https://user-images.githubusercontent.com/3927152/227252301-18fe0e82-2b80-47a5-8288-42b4732ce0cb.png)
+![AVIA1](https://user-images.githubusercontent.com/3927152/227252692-aed79bb2-f738-47e3-a047-c9357d05bef6.png)
+
 
 - **Define a database schema for the ListingPrice entity that will hold the price history for each listing. This schema should include a foreign key to the Listing entity to establish a one-to-many relationship between listings and their price histories.**
 
